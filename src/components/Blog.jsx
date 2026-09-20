@@ -137,7 +137,7 @@ A structured NAPS training program reduces future talent search costs while clai
         /* Blog Grid Layout */
         .blog-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
           gap: 2rem;
         }
 
@@ -184,6 +184,99 @@ A structured NAPS training program reduces future talent search costs while clai
           border-color: var(--accent-pink);
           color: var(--accent-pink);
           background: transparent !important;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(7, 6, 33, 0.4);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 2000;
+          padding: 1.5rem;
+        }
+
+        /* Modal Content */
+        .modal-content {
+          background: #ffffff;
+          border: 1px solid var(--border-color);
+          border-radius: 16px;
+          padding: 2.5rem;
+          max-width: 700px;
+          width: 100%;
+          max-height: 90vh;
+          overflow-y: auto;
+          position: relative;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        /* Modal Close Button */
+        .modal-close {
+          position: absolute;
+          top: 1.5rem;
+          right: 1.5rem;
+          background: none;
+          border: none;
+          color: var(--text-secondary);
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .modal-close:hover {
+          background-color: rgba(7, 6, 33, 0.05);
+          color: var(--accent-pink);
+        }
+
+        .modal-close svg {
+          width: 20px;
+          height: 20px;
+        }
+
+        .modal-header-meta {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .modal-company-info {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .separator {
+          color: var(--text-muted);
+        }
+
+        .modal-actions-footer {
+          margin-top: 1rem;
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        @media (max-width: 600px) {
+          .blog-card {
+            padding: 1.75rem 1.25rem;
+          }
+          .modal-content {
+            padding: 1.75rem 1.25rem;
+          }
         }
       `}</style>
     </section>

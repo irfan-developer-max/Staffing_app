@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Logo from "../assets/Logo.png";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import AnimatedEnterpriseLogo from "../components/AnimatedEnterpriseLogo.jsx";
 
 export default function Navbar({ activeSection, scrollToSection }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,27 +20,57 @@ export default function Navbar({ activeSection, scrollToSection }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const handleNavClick = (e, targetSection) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scrollToSection(targetSection);
+      }, 150);
+    } else {
+      scrollToSection(targetSection);
+    }
+  };
+
+  const isHomeActive = location.pathname === "/" && activeSection === "home";
+  const isServicesActive = location.pathname === "/services";
+  const isAboutActive = location.pathname === "/about";
+  const isIndustryActive = location.pathname === "/industries";
+
   return (
     <header className={`header-wrapper ${scrolled ? "scrolled" : ""}`}>
       {/* Top Blue Header */}
       <div className="top-header">
         <div className="container top-container">
           <div className="top-left">
-            <a href="#about" className="request-talent-tab" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
+            <Link to="/contact" className="request-talent-tab">
               Request Talent
-            </a>
+            </Link>
           </div>
           <div className="top-right">
-            <a href="#about" className="top-link" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a href="#about" className="top-link" onClick={(e) => handleNavClick(e, "about")}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
               Office Locations
             </a>
-            <a href="#about" className="top-link" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M10 11V9h4v2"/></svg>
+            <a href="#about" className="top-link" onClick={(e) => handleNavClick(e, "about")}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /><path d="M10 11V9h4v2" /></svg>
               Associate Support
             </a>
-            <a href="#about" className="top-link login-link" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <a href="#about" className="top-link login-link" onClick={(e) => handleNavClick(e, "about")}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="top-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
               Associate Login
             </a>
           </div>
@@ -48,86 +81,62 @@ export default function Navbar({ activeSection, scrollToSection }) {
       <nav className="navbar">
         <div className="container nav-container">
           {/* Logo */}
-          <a href="#home" className="nav-logo" onClick={(e) => { e.preventDefault(); scrollToSection("home"); }}>
-            <img src={Logo} className="logo-img" alt="SAI BABU Enterprises" />
-            <span className="logo-text">SAI BABU <span className="logo-highlight">Enterprises</span></span>
-          </a>
-
+          <section className="hero">
+            <AnimatedEnterpriseLogo />
+          </section>
           {/* Desktop Links */}
           <div className="nav-links">
             <a
               href="#home"
-              className={`nav-link ${activeSection === "home" ? "active" : ""}`}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("home");
-              }}
+              className={`nav-link ${isHomeActive ? "active" : ""}`}
+              onClick={(e) => handleNavClick(e, "home")}
             >
               Home
-              <span className={`active-line ${activeSection === "home" ? "active" : ""}`}></span>
+              <span className={`active-line ${isHomeActive ? "active" : ""}`}></span>
             </a>
 
-            {/* Dropdown Our Services */}
-            <div className="nav-item-dropdown">
-              <a
-                href="#services"
-                className={`nav-link ${activeSection === "services" ? "active" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("services");
-                }}
-              >
-                Our Services
-                <span className="dropdown-arrow">▼</span>
-                <span className={`active-line ${activeSection === "services" ? "active" : ""}`}></span>
-              </a>
-              <div className="dropdown-menu">
-                <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection("services"); }}>General Staffing</a>
-                <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection("services"); }}>IT Staffing</a>
-                <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection("services"); }}>Payroll Management</a>
-                <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection("services"); }}>Facility Services</a>
-              </div>
-            </div>
+            <Link
+              to="/services"
+              className={`nav-link ${isServicesActive ? "active" : ""}`}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Our Services
+              <span className={`active-line ${isServicesActive ? "active" : ""}`}></span>
+            </Link>
 
-            <a
-              href="#about"
-              className={`nav-link ${activeSection === "about" ? "active" : ""}`}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("about");
+            <Link
+              to="/about"
+              className={`nav-link ${isAboutActive ? "active" : ""}`}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
             >
               About Us
-              <span className={`active-line ${activeSection === "about" ? "active" : ""}`}></span>
-            </a>
+              <span className={`active-line ${isAboutActive ? "active" : ""}`}></span>
+            </Link>
 
-            {/* Dropdown Resources */}
-            <div className="nav-item-dropdown">
-              <a
-                href="#blog"
-                className={`nav-link ${activeSection === "blog" ? "active" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("blog");
-                }}
-              >
-                Resources
-                <span className="dropdown-arrow">▼</span>
-                <span className={`active-line ${activeSection === "blog" ? "active" : ""}`}></span>
-              </a>
-              <div className="dropdown-menu">
-                <a href="#blog" onClick={(e) => { e.preventDefault(); scrollToSection("blog"); }}>Corporate Blog</a>
-                <a href="#testimonials" onClick={(e) => { e.preventDefault(); scrollToSection("testimonials"); }}>Success Stories</a>
-                <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>Salary Reports</a>
-              </div>
-            </div>
+            <Link
+              to="/industries"
+              className={`nav-link ${isIndustryActive ? "active" : ""}`}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              Industries
+              <span className={`active-line ${isIndustryActive ? "active" : ""}`}></span>
+            </Link>
           </div>
 
           {/* Contact Button */}
           <div className="nav-cta">
-            <button className="btn-contact-us" onClick={() => scrollToSection("about")}>
+            <Link to="/contact" className="btn-contact-us">
               Contact Us
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Hamburger Toggle */}
@@ -148,106 +157,81 @@ export default function Navbar({ activeSection, scrollToSection }) {
         <div className="mobile-nav-links">
           <a
             href="#home"
-            className={`mobile-nav-link ${activeSection === "home" ? "active" : ""}`}
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              scrollToSection("home");
-            }}
+            className={`mobile-nav-link ${isHomeActive ? "active" : ""}`}
+            onClick={(e) => handleNavClick(e, "home")}
           >
             Home
           </a>
-          <a
-            href="#services"
-            className={`mobile-nav-link ${activeSection === "services" ? "active" : ""}`}
-            onClick={(e) => {
-              e.preventDefault();
+          <Link
+            to="/services"
+            className={`mobile-nav-link ${isServicesActive ? "active" : ""}`}
+            onClick={() => {
               setMobileMenuOpen(false);
-              scrollToSection("services");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             Our Services
-          </a>
-          <a
-            href="#about"
-            className={`mobile-nav-link ${activeSection === "about" ? "active" : ""}`}
-            onClick={(e) => {
-              e.preventDefault();
+          </Link>
+          <Link
+            to="/about"
+            className={`mobile-nav-link ${isAboutActive ? "active" : ""}`}
+            onClick={() => {
               setMobileMenuOpen(false);
-              scrollToSection("about");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
             About Us
-          </a>
-          <a
-            href="#blog"
-            className={`mobile-nav-link ${activeSection === "blog" ? "active" : ""}`}
-            onClick={(e) => {
-              e.preventDefault();
+          </Link>
+          <Link
+            to="/industries"
+            className={`mobile-nav-link ${isIndustryActive ? "active" : ""}`}
+            onClick={() => {
               setMobileMenuOpen(false);
-              scrollToSection("blog");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            Resources
-          </a>
-          
+            Industries
+          </Link>
+
           <hr className="mobile-divider" />
-          
-          <a
-            href="#about"
+
+          <Link
+            to="/contact"
             className="mobile-extra-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              scrollToSection("about");
-            }}
+            onClick={() => setMobileMenuOpen(false)}
           >
             Request Talent
-          </a>
+          </Link>
           <a
             href="#about"
             className="mobile-extra-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              scrollToSection("about");
-            }}
+            onClick={(e) => handleNavClick(e, "about")}
           >
             Office Locations
           </a>
           <a
             href="#about"
             className="mobile-extra-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              scrollToSection("about");
-            }}
+            onClick={(e) => handleNavClick(e, "about")}
           >
             Associate Support
           </a>
           <a
             href="#about"
             className="mobile-extra-link login-mobile-link"
-            onClick={(e) => {
-              e.preventDefault();
-              setMobileMenuOpen(false);
-              scrollToSection("about");
-            }}
+            onClick={(e) => handleNavClick(e, "about")}
           >
             Associate Login
           </a>
 
-          <button
+          <Link
+            to="/contact"
             className="btn-contact-us"
-            style={{ width: "100%", marginTop: "1rem" }}
-            onClick={() => {
-              setMobileMenuOpen(false);
-              scrollToSection("about");
-            }}
+            style={{ width: "100%", marginTop: "1rem", textAlign: "center", textDecoration: "none" }}
+            onClick={() => setMobileMenuOpen(false)}
           >
             Contact Us
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -412,6 +396,10 @@ export default function Navbar({ activeSection, scrollToSection }) {
           color: var(--accent-pink);
         }
 
+        .logo-text {
+          color: #070621;
+        }
+
         .nav-links {
           display: flex;
           align-items: center;
@@ -433,16 +421,6 @@ export default function Navbar({ activeSection, scrollToSection }) {
           color: var(--text-primary);
         }
 
-        .dropdown-arrow {
-          font-size: 0.65rem;
-          margin-top: 2px;
-          opacity: 0.7;
-          transition: transform 0.2s ease;
-        }
-
-        .nav-item-dropdown:hover .dropdown-arrow {
-          transform: rotate(180deg);
-        }
 
         .active-line {
           position: absolute;
@@ -464,57 +442,6 @@ export default function Navbar({ activeSection, scrollToSection }) {
           box-shadow: 0 1px 6px rgba(0, 94, 166, 0.4);
         }
 
-        /* Dropdown Menu Styles */
-        .nav-item-dropdown {
-          position: relative;
-        }
-
-        .dropdown-menu {
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          transform: translateX(-50%) translateY(10px);
-          background: #ffffff;
-          box-shadow: 0 10px 30px rgba(7, 6, 33, 0.08);
-          border: 1px solid var(--border-color);
-          border-radius: 8px;
-          padding: 0.75rem 0;
-          min-width: 220px;
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-          z-index: 1001;
-        }
-
-        /* Invisible bridge to keep hover active */
-        .dropdown-menu::before {
-          content: '';
-          position: absolute;
-          top: -15px;
-          left: 0;
-          width: 100%;
-          height: 15px;
-        }
-
-        .nav-item-dropdown:hover .dropdown-menu {
-          opacity: 1;
-          visibility: visible;
-          transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-menu a {
-          display: block;
-          padding: 0.65rem 1.5rem;
-          font-size: 0.9rem;
-          color: var(--text-secondary);
-          text-align: left;
-          transition: background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .dropdown-menu a:hover {
-          background-color: rgba(0, 94, 166, 0.05);
-          color: #005ea6;
-        }
 
         /* Contact Us Button */
         .btn-contact-us {
@@ -655,6 +582,16 @@ export default function Navbar({ activeSection, scrollToSection }) {
 
         .login-mobile-link:hover {
           color: #005ea6;
+        }
+
+        @media (max-width: 480px) {
+          .nav-logo {
+            font-size: 1.1rem;
+            gap: 0.4rem;
+          }
+          .logo-img {
+            height: 38px;
+          }
         }
       `}</style>
     </header>

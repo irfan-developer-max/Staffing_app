@@ -253,6 +253,14 @@ export default function Testimonials() {
           border-radius: 5px;
           box-shadow: var(--glow-shadow);
         }
+
+        @media (max-width: 480px) {
+          .testimonial-author-block {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+          }
+        }
       `}</style>
     </section>
   );

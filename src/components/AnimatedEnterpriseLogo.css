@@ -1,0 +1,79 @@
+.enterprise-logo-container {
+  width: clamp(140px, 15vw, 220px);
+  height: clamp(55px, 6vw, 85px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+.enterprise-logo-card {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+
+  will-change: transform, opacity;
+}
+
+.enterprise-logo {
+  width: 100%;
+  height: 100%;
+
+  max-width: 220px;
+  max-height: 85px;
+
+  object-fit: contain;
+
+  display: block;
+
+  transform: translateZ(0);
+
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Main 3D animation */
+.enterprise-logo-card.is-flipping {
+  transform:
+    rotateY(180deg)
+    scale(0.92);
+
+  opacity: 0;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .enterprise-logo-container {
+    width: 200px;
+    height: 75px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .enterprise-logo-container {
+    width: 145px;
+    height: 60px;
+  }
+}
+
+/* Accessibility:
+   Don't animate for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .enterprise-logo-card,
+  .enterprise-logo {
+    transition: none;
+  }
+}

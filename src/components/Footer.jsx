@@ -1,9 +1,24 @@
 import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
 export default function Footer({ scrollToSection }) {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleNavClick = (e, targetSection) => {
+    e.preventDefault();
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scrollToSection(targetSection);
+      }, 150);
+    } else {
+      scrollToSection(targetSection);
+    }
+  };
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -19,8 +34,10 @@ export default function Footer({ scrollToSection }) {
         {/* Company Identity */}
         <div className="footer-company-info">
           <div className="footer-logo">
-            <img src={Logo} className="logo-img" alt="SAI BABU Enterprises" />
-            <span className="logo-text">SAI BABU <span className="logo-highlight">Enterprises</span></span>
+            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              <img src={Logo} className="logo-img" alt="SAI BABU Enterprises" />
+              <span className="logo-text">SAI BABU <span className="logo-highlight">Enterprises</span></span>
+            </Link>
           </div>
           <p className="footer-tagline-text">
             Connecting premium professionals with industry-leading corporate brands. Shaping the future of strategic recruitment.
@@ -42,16 +59,24 @@ export default function Footer({ scrollToSection }) {
         <div className="footer-links-grid">
           <div className="link-column">
             <h4>Solutions</h4>
-            <a href="#services" onClick={(e) => { e.preventDefault(); scrollToSection("services"); }}>Our Services</a>
-            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>About Us</a>
-            <a href="#blog" onClick={(e) => { e.preventDefault(); scrollToSection("blog"); }}>Corporate Blog</a>
+            <Link to="/services" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              Our Services
+            </Link>
+            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              About Us
+            </Link>
+            <a href="#industry" onClick={(e) => handleNavClick(e, "industry")}>Industries</a>
           </div>
 
           <div className="link-column">
             <h4>Company</h4>
-            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("home"); }}>Home</a>
-            <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("home"); }}>Success Stories</a>
-            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection("about"); }}>Contact Us</a>
+            <a href="#home" onClick={(e) => handleNavClick(e, "home")}>Home</a>
+            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              About Us
+            </Link>
+            <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              Contact Us
+            </Link>
           </div>
         </div>
 
@@ -96,8 +121,9 @@ export default function Footer({ scrollToSection }) {
 
       <style>{`
         .footer-container {
-          background: rgba(7, 6, 33, 0.02);
-          border-top: 1px solid var(--border-color);
+          background: linear-gradient(135deg, #001f3f 0%, #003a6c 100%);
+          color: #ffffff;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
           padding: 5rem 0 2rem 0;
           margin-top: auto;
           position: relative;
@@ -133,6 +159,10 @@ export default function Footer({ scrollToSection }) {
           font-size: 1.3rem;
         }
 
+        .footer-logo .logo-text {
+          color: #ffffff;
+        }
+
         .logo-img {
           height: 40px;
           width: auto;
@@ -141,7 +171,7 @@ export default function Footer({ scrollToSection }) {
         }
 
         .footer-tagline-text {
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
           font-size: 0.92rem;
           line-height: 1.6;
         }
@@ -151,11 +181,11 @@ export default function Footer({ scrollToSection }) {
           flex-direction: column;
           gap: 0.4rem;
           font-size: 0.88rem;
-          color: var(--text-muted);
+          color: rgba(255, 255, 255, 0.7);
         }
 
         .contact-item strong {
-          color: var(--text-secondary);
+          color: #ffffff;
         }
 
         /* Links Columns */
@@ -176,16 +206,16 @@ export default function Footer({ scrollToSection }) {
           text-transform: uppercase;
           letter-spacing: 0.08em;
           margin-bottom: 0.5rem;
-          color: var(--text-primary);
+          color: #ffffff;
         }
 
         .link-column a {
           font-size: 0.92rem;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
         }
 
         .link-column a:hover {
-          color: var(--primary-cyan);
+          color: #f9cb15;
           padding-left: 3px;
         }
 
@@ -198,7 +228,7 @@ export default function Footer({ scrollToSection }) {
 
         .footer-newsletter p {
           font-size: 0.9rem;
-          color: var(--text-secondary);
+          color: rgba(255, 255, 255, 0.8);
           line-height: 1.5;
         }
 
@@ -208,23 +238,33 @@ export default function Footer({ scrollToSection }) {
         }
 
         .newsletter-input {
-          background: rgba(15, 23, 42, 0.6);
-          border: 1px solid var(--border-color);
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.2);
           border-radius: 8px;
           padding: 0.6rem 1rem;
-          color: var(--text-primary);
+          color: #ffffff;
           outline: none;
           flex-grow: 1;
           font-size: 0.9rem;
         }
 
+        .newsletter-input::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+
         .newsletter-input:focus {
-          border-color: var(--primary-cyan);
+          border-color: #f9cb15;
         }
 
         .newsletter-btn {
           padding: 0.6rem 1.2rem !important;
           border-radius: 8px !important;
+          background: #e31b23 !important;
+          color: #ffffff !important;
+        }
+
+        .newsletter-btn:hover {
+          background: #c11219 !important;
         }
 
         .newsletter-success {
@@ -232,9 +272,9 @@ export default function Footer({ scrollToSection }) {
         }
 
         .success-badge {
-          color: var(--primary-cyan);
-          background: rgba(6, 182, 212, 0.1);
-          border: 1px solid rgba(6, 182, 212, 0.2);
+          color: #f9cb15;
+          background: rgba(249, 203, 21, 0.1);
+          border: 1px solid rgba(249, 203, 21, 0.2);
           padding: 0.5rem 1rem;
           border-radius: 20px;
           font-size: 0.85rem;
@@ -243,7 +283,7 @@ export default function Footer({ scrollToSection }) {
 
         /* Footer Bottom Bar */
         .footer-bottom {
-          border-top: 1px solid var(--border-color);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
           padding-top: 2rem;
           display: flex;
           align-items: center;
@@ -254,7 +294,7 @@ export default function Footer({ scrollToSection }) {
 
         .copyright-text {
           font-size: 0.85rem;
-          color: var(--text-muted);
+          color: rgba(255, 255, 255, 0.6);
         }
 
         .footer-legal-links {
@@ -264,11 +304,11 @@ export default function Footer({ scrollToSection }) {
 
         .footer-legal-links a {
           font-size: 0.85rem;
-          color: var(--text-muted);
+          color: rgba(255, 255, 255, 0.6);
         }
 
         .footer-legal-links a:hover {
-          color: var(--text-secondary);
+          color: #ffffff;
         }
       `}</style>
     </footer>

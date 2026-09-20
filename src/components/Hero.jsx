@@ -1,5 +1,5 @@
 import React from "react";
-import HR from "../assets/HR1.png";
+import HR from "../assets/homepage.png";
 
 export default function Hero({ scrollToSection }) {
   return (
@@ -9,19 +9,12 @@ export default function Hero({ scrollToSection }) {
         <div className="hero-left-split">
           <div className="hero-content-wrapper">
             <h1 className="hero-title">
-              Connecting Elite Talent with Pioneering Companies
+              Saibabu Enterprises &<br className="mobile-break" /> <span style={{ color: 'red' }}>Rudhrasri Enterprises</span>
             </h1>
             <p className="hero-description">
-              Nexus Staffing is a premium talent acquisition partner. We streamline recruitment processes across Technology, Finance, Engineering, and Healthcare to build high-performance teams.
+              Delivering reliable manpower and workforce solutions<br className="mobile-break" /> with trust, quality, and commitment since 2016.
             </p>
-            <div className="hero-actions">
-              <button className="btn btn-hero-primary" onClick={() => scrollToSection("about")}>
-                Hire Top Talent &rsaquo;
-              </button>
-              <button className="btn btn-hero-secondary" onClick={() => scrollToSection("about")}>
-                Apply as Talent &rsaquo;
-              </button>
-            </div>
+
           </div>
         </div>
 
@@ -38,7 +31,14 @@ export default function Hero({ scrollToSection }) {
             <img src="https://avishkarindustries.com/wp-content/uploads/2026/04/db4007b5-79fc-4d48-92e5-2cee6f3f40d4.jpg" alt="Avishkar Industries" className="partner-logo" />
             <img src="https://thermocables.com/wp-content/uploads/2024/12/Thermocables-logo-2-2.png" alt="Thermocables" className="partner-logo" />
             <img src="https://www.radiantappliances.com/images/logos/it_logo.png" alt="Radiant Appliances" className="partner-logo" />
-            <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar" className="partner-logo" />
+            <div className="split-partner-logo">
+              <div className="logo-flower-crop">
+                <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar Icon" />
+              </div>
+              <div className="logo-text-crop">
+                <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar Text" />
+              </div>
+            </div>
             <img src="https://solargroup.com/img/logo.png" alt="Solar Group" className="partner-logo" />
             <img src="https://www.nmdc.co.in/assets/images/logo.png" alt="NMDC" className="partner-logo" />
             <img src="https://mic.co.in/wp-content/uploads/2024/09/mic-ele-e1706100975746.png" alt="MIC" className="partner-logo" />
@@ -47,7 +47,14 @@ export default function Hero({ scrollToSection }) {
             <img src="https://avishkarindustries.com/wp-content/uploads/2026/04/db4007b5-79fc-4d48-92e5-2cee6f3f40d4.jpg" alt="Avishkar Industries" className="partner-logo" />
             <img src="https://thermocables.com/wp-content/uploads/2024/12/Thermocables-logo-2-2.png" alt="Thermocables" className="partner-logo" />
             <img src="https://www.radiantappliances.com/images/logos/it_logo.png" alt="Radiant Appliances" className="partner-logo" />
-            <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar" className="partner-logo" />
+            <div className="split-partner-logo">
+              <div className="logo-flower-crop">
+                <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar Icon" />
+              </div>
+              <div className="logo-text-crop">
+                <img src="https://www.indosolsolar.com/wp-content/uploads/2024/09/Indosol-Solar.png" alt="Indosol Solar Text" />
+              </div>
+            </div>
             <img src="https://solargroup.com/img/logo.png" alt="Solar Group" className="partner-logo" />
             <img src="https://www.nmdc.co.in/assets/images/logo.png" alt="NMDC" className="partner-logo" />
             <img src="https://mic.co.in/wp-content/uploads/2024/09/mic-ele-e1706100975746.png" alt="MIC" className="partner-logo" />
@@ -247,6 +254,50 @@ export default function Hero({ scrollToSection }) {
           transform: scale(1.06);
         }
 
+        .split-partner-logo {
+          display: inline-flex;
+          align-items: center;
+          height: 44px;
+          opacity: 0.8;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+          gap: 0;
+        }
+
+        .split-partner-logo:hover {
+          opacity: 1;
+          transform: scale(1.06);
+        }
+
+        .logo-flower-crop {
+          width: 36px;
+          height: 44px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+        }
+
+        .logo-flower-crop img {
+          height: 32px;
+          width: auto;
+          max-width: none;
+        }
+
+        .logo-text-crop {
+          width: 140px;
+          height: 44px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+        }
+
+        .logo-text-crop img {
+          height: 32px;
+          width: auto;
+          max-width: none;
+          margin-left: -36px;
+          filter: brightness(0);
+        }
+
         @keyframes scrollMarquee {
           0% {
             transform: translateX(0);
@@ -267,6 +318,10 @@ export default function Hero({ scrollToSection }) {
           }
         }
 
+        .mobile-break {
+          display: none;
+        }
+
         @media (max-width: 900px) {
           .hero-split-container {
             flex-direction: column;
@@ -274,15 +329,17 @@ export default function Hero({ scrollToSection }) {
           }
           .hero-left-split {
             flex: 0 0 100%;
-            padding: 4rem 2rem;
+            padding: 5rem 1.5rem;
+            clip-path: none;
+            background: linear-gradient(135deg, rgba(0, 58, 108, 0.92) 0%, rgba(0, 94, 166, 0.95) 100%), url(${HR});
+            background-size: cover;
+            background-position: center;
           }
           .hero-left-split::after {
             display: none; /* remove slant on mobile */
           }
           .hero-right-split {
-            flex: 0 0 100%;
-            height: 320px;
-            margin-left: 0;
+            display: none;
           }
           .hero-content-wrapper {
             max-width: 100%;
@@ -296,6 +353,9 @@ export default function Hero({ scrollToSection }) {
           .hero-section {
             padding-top: 80px; /* smaller header on mobile */
           }
+          .mobile-break {
+            display: block;
+          }
         }
 
         @media (max-width: 600px) {
@@ -308,6 +368,10 @@ export default function Hero({ scrollToSection }) {
           }
           .hero-title {
             font-size: 2.2rem;
+          }
+          .hero-description {
+            font-size: 0.85rem;
+            white-space: nowrap;
           }
         }
       `}</style>
