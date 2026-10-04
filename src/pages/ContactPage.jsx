@@ -24,21 +24,51 @@ export default function ContactPage() {
 
   const handleInquirySubmit = (e) => {
     e.preventDefault();
-    setSubmitted(true);
 
-    // Reset after some time (simulating API call)
-    setTimeout(() => {
-      setSubmitted(false);
-      setInquiryForm({
-        name: "",
-        company: "",
-        email: "",
-        phone: "",
-        serviceType: "Manpower Supply",
-        workforceCount: "10-50",
-        message: ""
+    // Replace this with your actual business email address
+    const yourBusinessEmail = "tektreefive@gmail.com";
+
+    fetch(`https://formsubmit.co/ajax/${yourBusinessEmail}`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: inquiryForm.name,
+        company: inquiryForm.company,
+        email: inquiryForm.email,
+        phone: inquiryForm.phone,
+        serviceType: inquiryForm.serviceType,
+        workforceCount: inquiryForm.workforceCount,
+        message: inquiryForm.message,
+        _subject: `New Workforce Inquiry from ${inquiryForm.company}`,
+        _autoresponse: `Hi ${inquiryForm.name},\n\nThank you for contacting SAI BABU Enterprises! We have successfully received your inquiry regarding ${inquiryForm.serviceType}.\n\nOne of our workforce directors will review your requirements and get back to you within 24 hours.\n\nBest Regards,\nThe SAI BABU Enterprises Team`
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Emails sent successfully!", data);
+        setSubmitted(true);
+
+        // Reset after showing success message
+        setTimeout(() => {
+          setSubmitted(false);
+          setInquiryForm({
+            name: "",
+            company: "",
+            email: "",
+            phone: "",
+            serviceType: "Manpower Supply",
+            workforceCount: "10-50",
+            message: ""
+          });
+        }, 4000);
+      })
+      .catch((error) => {
+        console.error("FormSubmit error:", error);
+        alert("Failed to send the inquiry. Please try again later.");
       });
-    }, 3000);
   };
 
   return (
@@ -52,7 +82,7 @@ export default function ContactPage() {
       </Helmet>
 
       <div className="contact-page-container">
-        
+
         {/* Banner Section */}
         <section className="contact-banner">
           <div className="container">

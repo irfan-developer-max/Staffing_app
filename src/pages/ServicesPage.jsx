@@ -3,7 +3,12 @@ import  { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Phone, Mail, MapPin } from "lucide-react";
 import HandshakeManpowerImage from "../assets/handshake_manpower.png";
+import WorkforceAboutImage from "../assets/workforce_about.png";
+import RecruitmentAboutImage from "../assets/recruitment_about.png";
+import LogisticsAboutImage from "../assets/logistics_about.png";
+import TrainingAboutImage from "../assets/training_about.png";
 
 export default function ServicesPage() {
   const navigate = useNavigate();
@@ -17,7 +22,6 @@ export default function ServicesPage() {
       title: "Manpower Supply",
       desc: "Providing skilled, semi-skilled and unskilled manpower for warehouses, industries, operations and other business needs.",
       image: HandshakeManpowerImage,
-      reverse: true,
       icon: (
         <svg
           viewBox="0 0 24 24"
@@ -42,8 +46,7 @@ export default function ServicesPage() {
       title: "Recruitment & Staffing",
       tagline: "Precision Talent Sourcing",
       desc: "Sourcing and deploying suitable candidates for different positions across various industries.",
-      image:
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=80",
+      image: RecruitmentAboutImage,
       badge: {
         lines: ["RIGHT", "TALENT", "BRIGHTER", "TOMORROW"],
         position: "top-left",
@@ -73,8 +76,7 @@ export default function ServicesPage() {
       title: "Contract Workforce Management",
       tagline: "Agile & Compliant Staffing",
       desc: "End-to-end contract staffing solutions to manage workforce efficiently and seamlessly.",
-      image:
-        "https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&w=1600&q=80",
+      image: WorkforceAboutImage,
       badge: {
         lines: ["BUILDING", "STRONGER", "BUSINESSES"],
         position: "bottom-right",
@@ -105,8 +107,7 @@ export default function ServicesPage() {
       title: "Industrial & Warehouse Staffing",
       tagline: "Operational Excellence On-Site",
       desc: "Trained and dependable workforce for warehouse, manufacturing, logistics, and industrial operations.",
-      image:
-        "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1600&q=80",
+      image: LogisticsAboutImage,
       badge: {
         lines: ["PRECISION", "LOGISTICS", "ON TIME"],
         position: "top-left",
@@ -136,8 +137,7 @@ export default function ServicesPage() {
       title: "Payroll & Compliance Support",
       tagline: "100% Statutory Compliance",
       desc: "Assistance with payroll processing and statutory requirements such as PF and ESI.",
-      image:
-        "https://images.unsplash.com/photo-1454165804606-c3d57bc86f40?auto=format&fit=crop&w=1600&q=80",
+      image: TrainingAboutImage,
       badge: {
         lines: ["100% AUDIT READY", "ZERO RISK"],
         position: "top-right",
@@ -792,19 +792,17 @@ export default function ServicesPage() {
                 </p>
 
                 <div className="cta-contact-pills">
-
                   <span className="pill-item">
-                    📞 +91 98765 43210
+                    <Phone size={16} /> +91 98765 43210
                   </span>
 
                   <span className="pill-item">
-                    ✉️ staffing@saibabuenterprises.com
+                    <Mail size={16} /> staffing@saibabuenterprises.com
                   </span>
 
                   <span className="pill-item">
-                    📍 Pan-India Operational Support
+                    <MapPin size={16} /> Pan-India Operational Support
                   </span>
-
                 </div>
               </div>
 
@@ -1687,6 +1685,9 @@ export default function ServicesPage() {
             font-weight: 600;
             padding: 0.4rem 0.9rem;
             border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
           }
 
           .cta-right {

@@ -231,7 +231,7 @@ export default function About() {
 
         /* Last card has a straight vertical right edge to cover the screen all the way to the right */
         .slanted-card:last-child {
-          clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%) !important;
+          clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%);
         }
 
         /* Dark blue gradient overlay fading smoothly from top (opaque) to bottom (transparent) */

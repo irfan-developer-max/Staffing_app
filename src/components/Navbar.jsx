@@ -108,18 +108,6 @@ export default function Navbar({ activeSection, scrollToSection }) {
             </Link>
 
             <Link
-              to="/about"
-              className={`nav-link ${isAboutActive ? "active" : ""}`}
-              onClick={() => {
-                setMobileMenuOpen(false);
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              About Us
-              <span className={`active-line ${isAboutActive ? "active" : ""}`}></span>
-            </Link>
-
-            <Link
               to="/industries"
               className={`nav-link ${isIndustryActive ? "active" : ""}`}
               onClick={() => {
@@ -129,6 +117,18 @@ export default function Navbar({ activeSection, scrollToSection }) {
             >
               Industries
               <span className={`active-line ${isIndustryActive ? "active" : ""}`}></span>
+            </Link>
+
+            <Link
+              to="/about"
+              className={`nav-link ${isAboutActive ? "active" : ""}`}
+              onClick={() => {
+                setMobileMenuOpen(false);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+            >
+              About Us
+              <span className={`active-line ${isAboutActive ? "active" : ""}`}></span>
             </Link>
           </div>
 
@@ -173,16 +173,6 @@ export default function Navbar({ activeSection, scrollToSection }) {
             Our Services
           </Link>
           <Link
-            to="/about"
-            className={`mobile-nav-link ${isAboutActive ? "active" : ""}`}
-            onClick={() => {
-              setMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-          >
-            About Us
-          </Link>
-          <Link
             to="/industries"
             className={`mobile-nav-link ${isIndustryActive ? "active" : ""}`}
             onClick={() => {
@@ -191,6 +181,16 @@ export default function Navbar({ activeSection, scrollToSection }) {
             }}
           >
             Industries
+          </Link>
+          <Link
+            to="/about"
+            className={`mobile-nav-link ${isAboutActive ? "active" : ""}`}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
+            About Us
           </Link>
 
           <hr className="mobile-divider" />

@@ -34,9 +34,9 @@ export default function Footer({ scrollToSection }) {
         {/* Company Identity */}
         <div className="footer-company-info">
           <div className="footer-logo">
-            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-              <img src={Logo} className="logo-img" alt="SAI BABU Enterprises" />
-              <span className="logo-text">SAI BABU <span className="logo-highlight">Enterprises</span></span>
+            <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="footer-logo-link">
+              <img src={Logo} className="footer-logo-img" alt="SAI BABU Enterprises" />
+              <span className="footer-logo-text">SAI BABU <span className="footer-logo-highlight">Enterprises</span></span>
             </Link>
           </div>
           <p className="footer-tagline-text">
@@ -150,24 +150,31 @@ export default function Footer({ scrollToSection }) {
           gap: 1.2rem;
         }
 
-        .footer-logo {
+        .footer-logo-link {
           display: flex;
           align-items: center;
           gap: 0.75rem;
           font-family: 'Outfit', sans-serif;
           font-weight: 800;
-          font-size: 1.3rem;
+          font-size: 1.6rem;
+          text-decoration: none;
         }
 
-        .footer-logo .logo-text {
+        .footer-logo-text {
           color: #ffffff;
         }
 
-        .logo-img {
-          height: 40px;
+        .footer-logo-highlight {
+          color: #e31b23;
+        }
+
+        .footer-logo-img {
+          height: 48px;
           width: auto;
           object-fit: contain;
-          border-radius: 4px;
+          border-radius: 8px;
+          background-color: #ffffff;
+          padding: 4px;
         }
 
         .footer-tagline-text {

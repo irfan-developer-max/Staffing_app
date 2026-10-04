@@ -1,6 +1,17 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import saibabuLogo from "../assets/saibabu.png";
+import rudhrasriLogo from "../assets/Rudhrasri.png";
+import {
+  Factory,
+  Sun,
+  ShoppingCart,
+  Warehouse,
+  Cable,
+  Shirt,
+} from "lucide-react";
+
 
 /* =========================================================
    DATA
@@ -119,37 +130,37 @@ const stats = [
 const sectors = [
   {
     name: "Manufacturing",
-    icon: "⚙️",
+    icon: <Factory size={28} strokeWidth={2.5} />,
     desc: "Assembly line operators, machinists, QC controllers for plant floors.",
     color: "#005ea6",
   },
   {
     name: "Solar Energy",
-    icon: "☀️",
+    icon: <Sun size={28} strokeWidth={2.5} />,
     desc: "Panel installers, EPC helpers, site supervisors for solar projects.",
     color: "#f59e0b",
   },
   {
     name: "E-Commerce",
-    icon: "📦",
+    icon: <ShoppingCart size={28} strokeWidth={2.5} />,
     desc: "Packers, sorters, fulfillment staff for major platforms.",
     color: "#10b981",
   },
   {
     name: "Warehousing",
-    icon: "🏭",
+    icon: <Warehouse size={28} strokeWidth={2.5} />,
     desc: "Loaders, inventory operators, warehouse managers.",
     color: "#8b5cf6",
   },
   {
     name: "Cables & Wiring",
-    icon: "🔌",
+    icon: <Cable size={28} strokeWidth={2.5} />,
     desc: "Cable assembly, quality inspection, reel handling teams.",
     color: "#e31b23",
   },
   {
     name: "Textiles",
-    icon: "🧵",
+    icon: <Shirt size={28} strokeWidth={2.5} />,
     desc: "Loom operators, finishing staff, quality checkers.",
     color: "#ec4899",
   },
@@ -398,9 +409,9 @@ export default function IndustriesPage() {
 
                   <div className="ip-ent-hero-text">
 
-                    <h3 className="ip-ent-name">
-                      Saibabu
-                    </h3>
+                    <div className="ip-ent-logo-wrapper">
+                      <img src={saibabuLogo} alt="Saibabu" className="ip-ent-logo" />
+                    </div>
 
                     <p className="ip-ent-tagline">
                       Driving growth across key
@@ -485,13 +496,11 @@ export default function IndustriesPage() {
 
                   <div className="ip-ent-hero-text">
 
-                    <div className="ip-ent-brand-badge">
-                      Solar & E-Commerce
-                    </div>
 
-                    <h3 className="ip-ent-name">
-                      Rudhrasri
-                    </h3>
+
+                    <div className="ip-ent-logo-wrapper">
+                      <img src={rudhrasriLogo} alt="Rudhrasri" className="ip-ent-logo" />
+                    </div>
 
                     <p className="ip-ent-tagline">
                       Supporting leading brands
@@ -610,13 +619,7 @@ export default function IndustriesPage() {
                   className="ip-sector-card"
                 >
 
-                  <div
-                    className="ip-sector-icon-wrap"
-                    style={{
-                      background: `${sector.color}15`,
-                      color: sector.color,
-                    }}
-                  >
+                  <div className="ip-sector-icon-wrap">
                     <span className="ip-sector-emoji">
                       {sector.icon}
                     </span>
@@ -1136,7 +1139,8 @@ export default function IndustriesPage() {
         .ip-ent-hero {
           position: relative;
 
-          height: 300px;
+          /* Adjust height to fit content since it's no longer a cover image */
+          height: auto;
 
           background-size: cover;
 
@@ -1146,47 +1150,15 @@ export default function IndustriesPage() {
         }
 
         .ip-ent-hero--manuf {
-          background-image:
-            linear-gradient(
-              160deg,
-              #0d2137 0%,
-              #1a3a5c 100%
-            ),
-            url(
-              "https://images.unsplash.com/photo-1565689157206-0fddef7589a2?w=900&q=80"
-            );
-
-          background-blend-mode:
-            multiply;
+          background: transparent;
         }
 
         .ip-ent-hero--solar {
-          background-image:
-            linear-gradient(
-              160deg,
-              #0d2137 0%,
-              #1a3a5c 100%
-            ),
-            url(
-              "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=900&q=80"
-            );
-
-          background-blend-mode:
-            multiply;
+          background: transparent;
         }
 
         .ip-ent-hero-overlay {
-          position: absolute;
-
-          inset: 0;
-
-          background:
-            linear-gradient(
-              to right,
-              rgba(8, 20, 40, 0.82) 0%,
-              rgba(8, 20, 40, 0.38) 65%,
-              rgba(8, 20, 40, 0.06) 100%
-            );
+          display: none;
         }
 
         .ip-ent-hero-text {
@@ -1196,16 +1168,18 @@ export default function IndustriesPage() {
 
           padding:
             2.5rem 2.8rem;
+          
+          text-align: center;
         }
 
         .ip-ent-brand-badge {
           display: inline-block;
 
           background:
-            rgba(255, 255, 255, 0.15);
+            #f1f5f9;
 
           color:
-            rgba(255, 255, 255, 0.9);
+            #1e293b;
 
           font-family: "Outfit", sans-serif;
 
@@ -1224,9 +1198,9 @@ export default function IndustriesPage() {
 
           border:
             1px solid
-            rgba(255, 255, 255, 0.2);
+            #cbd5e1;
 
-          margin-bottom: 0.75rem;
+          margin-bottom: 1rem;
         }
 
         .ip-ent-name {
@@ -1244,17 +1218,35 @@ export default function IndustriesPage() {
           letter-spacing: -0.03em;
         }
 
+        .ip-ent-logo-wrapper {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 2px solid #1e293b;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1rem auto;
+        }
+
+        .ip-ent-logo {
+          max-height: 50px;
+          max-width: 65px;
+          object-fit: contain;
+        }
+
         .ip-ent-tagline {
           font-size: 1rem;
 
           line-height: 1.6;
 
           color:
-            rgba(255, 255, 255, 0.85);
+            #475569;
 
           max-width: 320px;
 
-          margin: 0;
+          margin: 0 auto;
         }
 
 
@@ -1408,9 +1400,9 @@ export default function IndustriesPage() {
         }
 
         .ip-client-name {
-          font-size: 1.02rem;
+          font-size: 1.08rem;
 
-          font-weight: 600;
+          font-weight: 800;
 
           color: #1e293b;
         }
@@ -1426,9 +1418,9 @@ export default function IndustriesPage() {
         .ip-client-count {
           font-family: "Outfit", sans-serif;
 
-          font-size: 1rem;
+          font-size: 1.08rem;
 
-          font-weight: 700;
+          font-weight: 900;
 
           color: #005ea6;
 
@@ -1505,6 +1497,12 @@ export default function IndustriesPage() {
           height: 68px;
 
           border-radius: 18px;
+
+          border: 2px solid #1e293b;
+
+          background: transparent;
+
+          color: #1e293b;
 
           display: flex;
 
